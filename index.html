@@ -5,48 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Introduction to Statistics – Online Quiz</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 40px auto;
-      line-height: 1.6;
-      padding: 0 16px;
-    }
-    h1 { margin-bottom: 10px; }
-    .name { margin: 18px 0 26px; }
-    .question { margin: 18px 0 22px; padding: 12px 12px; border: 1px solid #ddd; border-radius: 8px; }
+    body { font-family: Arial, sans-serif; max-width: 980px; margin: 40px auto; line-height: 1.55; padding: 0 16px; }
+    h1 { margin: 0 0 8px; }
+    .hint { color: #333; margin: 8px 0 18px; }
+    .name { margin: 18px 0 18px; }
+    .question { margin: 14px 0; padding: 12px 12px; border: 1px solid #ddd; border-radius: 10px; }
     .question strong { display: block; margin-bottom: 8px; }
-    .hint { font-size: 0.95em; color: #333; }
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0; }
     button { padding: 10px 14px; font-size: 1rem; cursor: pointer; }
+    textarea { width: 100%; min-height: 220px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+    .ok { color: #0a7a0a; font-weight: 600; }
+    .warn { color: #8a5a00; font-weight: 600; }
   </style>
 </head>
 <body>
 
 <h1>Introduction to Statistics – Online Quiz</h1>
-
 <p class="hint"><strong>Instructions:</strong> Choose the best answer for each question. Select only one correct answer per question.</p>
 
-<!--
-  HOW SENDING WORKS (mailto):
-  - This opens the student's default email client with the filled answers in the message body.
-  - It does NOT send automatically (student must click Send).
-  - Some browsers/email clients may block/limit mailto for privacy/security reasons.
--->
+<div class="name">
+  <label>
+    <strong>Name and Last Name:</strong>
+    <input id="studentName" type="text" size="42" placeholder="e.g., Anna Kowalska" required>
+  </label>
+</div>
 
-<form action="mailto:YOUR_EMAIL@university.edu"
-      method="post"
-      enctype="text/plain">
-
-  <div class="name">
-    <label>
-      <strong>Name and Last Name:</strong>
-      <input type="text" name="student_name" size="40" required />
-    </label>
-  </div>
+<form id="quizForm">
 
   <div class="question">
     <strong>1. Which of the following is not considered a measure of central tendency?</strong>
-    <label><input type="radio" name="q1" value="a" required> a. Mean</label><br>
+    <label><input type="radio" name="q1" value="a"> a. Mean</label><br>
     <label><input type="radio" name="q1" value="b"> b. Median</label><br>
     <label><input type="radio" name="q1" value="c"> c. Mode</label><br>
     <label><input type="radio" name="q1" value="d"> d. Range</label>
@@ -54,7 +42,7 @@
 
   <div class="question">
     <strong>2. Which statistical measure does not describe the variability of a dataset?</strong>
-    <label><input type="radio" name="q2" value="a" required> a. Mode</label><br>
+    <label><input type="radio" name="q2" value="a"> a. Mode</label><br>
     <label><input type="radio" name="q2" value="b"> b. Standard deviation</label><br>
     <label><input type="radio" name="q2" value="c"> c. Variance</label><br>
     <label><input type="radio" name="q2" value="d"> d. Range</label>
@@ -62,7 +50,7 @@
 
   <div class="question">
     <strong>3. Which measure of central tendency is most sensitive to extreme values?</strong>
-    <label><input type="radio" name="q3" value="a" required> a. Mean</label><br>
+    <label><input type="radio" name="q3" value="a"> a. Mean</label><br>
     <label><input type="radio" name="q3" value="b"> b. Median</label><br>
     <label><input type="radio" name="q3" value="c"> c. Mode</label><br>
     <label><input type="radio" name="q3" value="d"> d. All are equally affected</label>
@@ -70,7 +58,7 @@
 
   <div class="question">
     <strong>4. In a perfectly symmetric distribution, which of the following statements is correct?</strong>
-    <label><input type="radio" name="q4" value="a" required> a. Mean is greater than the median</label><br>
+    <label><input type="radio" name="q4" value="a"> a. Mean is greater than the median</label><br>
     <label><input type="radio" name="q4" value="b"> b. Median is greater than the mean</label><br>
     <label><input type="radio" name="q4" value="c"> c. Mean, median, and mode are equal</label><br>
     <label><input type="radio" name="q4" value="d"> d. Mean and mode are equal, but median differs</label>
@@ -78,7 +66,7 @@
 
   <div class="question">
     <strong>5. Approximately what percentage of data falls within one standard deviation of the mean in a normal distribution?</strong>
-    <label><input type="radio" name="q5" value="a" required> a. 68%</label><br>
+    <label><input type="radio" name="q5" value="a"> a. 68%</label><br>
     <label><input type="radio" name="q5" value="b"> b. 50%</label><br>
     <label><input type="radio" name="q5" value="c"> c. 95%</label><br>
     <label><input type="radio" name="q5" value="d"> d. 99.7%</label>
@@ -86,7 +74,7 @@
 
   <div class="question">
     <strong>6. A variable that represents categories without a natural order is called:</strong>
-    <label><input type="radio" name="q6" value="a" required> a. Nominal</label><br>
+    <label><input type="radio" name="q6" value="a"> a. Nominal</label><br>
     <label><input type="radio" name="q6" value="b"> b. Ordinal</label><br>
     <label><input type="radio" name="q6" value="c"> c. Interval</label><br>
     <label><input type="radio" name="q6" value="d"> d. Ratio</label>
@@ -94,7 +82,7 @@
 
   <div class="question">
     <strong>7. In an experiment, which variable is directly controlled or manipulated by the researcher?</strong>
-    <label><input type="radio" name="q7" value="a" required> a. Dependent variable</label><br>
+    <label><input type="radio" name="q7" value="a"> a. Dependent variable</label><br>
     <label><input type="radio" name="q7" value="b"> b. Independent variable</label><br>
     <label><input type="radio" name="q7" value="c"> c. Confounding variable</label><br>
     <label><input type="radio" name="q7" value="d"> d. Latent variable</label>
@@ -102,7 +90,7 @@
 
   <div class="question">
     <strong>8. In which sampling method does every member of the population have an equal chance of selection?</strong>
-    <label><input type="radio" name="q8" value="a" required> a. Systematic sampling</label><br>
+    <label><input type="radio" name="q8" value="a"> a. Systematic sampling</label><br>
     <label><input type="radio" name="q8" value="b"> b. Simple random sampling</label><br>
     <label><input type="radio" name="q8" value="c"> c. Cluster sampling</label><br>
     <label><input type="radio" name="q8" value="d"> d. Stratified sampling</label>
@@ -110,7 +98,7 @@
 
   <div class="question">
     <strong>9. A sampling method where the population is divided into subgroups, and samples are taken from each subgroup, is called:</strong>
-    <label><input type="radio" name="q9" value="a" required> a. Stratified sampling</label><br>
+    <label><input type="radio" name="q9" value="a"> a. Stratified sampling</label><br>
     <label><input type="radio" name="q9" value="b"> b. Cluster sampling</label><br>
     <label><input type="radio" name="q9" value="c"> c. Convenience sampling</label><br>
     <label><input type="radio" name="q9" value="d"> d. Quota sampling</label>
@@ -118,7 +106,7 @@
 
   <div class="question">
     <strong>10. Selecting participants based on ease of access is known as:</strong>
-    <label><input type="radio" name="q10" value="a" required> a. Systematic sampling</label><br>
+    <label><input type="radio" name="q10" value="a"> a. Systematic sampling</label><br>
     <label><input type="radio" name="q10" value="b"> b. Convenience sampling</label><br>
     <label><input type="radio" name="q10" value="c"> c. Cluster sampling</label><br>
     <label><input type="radio" name="q10" value="d"> d. Snowball sampling</label>
@@ -126,7 +114,7 @@
 
   <div class="question">
     <strong>11. The Chi-Square test is primarily used for:</strong>
-    <label><input type="radio" name="q11" value="a" required> a. Testing correlation between variables</label><br>
+    <label><input type="radio" name="q11" value="a"> a. Testing correlation between variables</label><br>
     <label><input type="radio" name="q11" value="b"> b. Comparing means of two groups</label><br>
     <label><input type="radio" name="q11" value="c"> c. Testing variance within a dataset</label><br>
     <label><input type="radio" name="q11" value="d"> d. Assessing relationships between categorical variables</label>
@@ -134,7 +122,7 @@
 
   <div class="question">
     <strong>12. A t-test is used in statistical analysis when:</strong>
-    <label><input type="radio" name="q12" value="a" required> a. Comparing the means of two groups</label><br>
+    <label><input type="radio" name="q12" value="a"> a. Comparing the means of two groups</label><br>
     <label><input type="radio" name="q12" value="b"> b. Analyzing categorical data</label><br>
     <label><input type="radio" name="q12" value="c"> c. Testing variance between multiple datasets</label><br>
     <label><input type="radio" name="q12" value="d"> d. Evaluating skewness</label>
@@ -142,7 +130,7 @@
 
   <div class="question">
     <strong>13. A correlation coefficient of 0 indicates:</strong>
-    <label><input type="radio" name="q13" value="a" required> a. A perfect positive relationship</label><br>
+    <label><input type="radio" name="q13" value="a"> a. A perfect positive relationship</label><br>
     <label><input type="radio" name="q13" value="b"> b. A perfect negative relationship</label><br>
     <label><input type="radio" name="q13" value="c"> c. No linear relationship</label><br>
     <label><input type="radio" name="q13" value="d"> d. Identical variables</label>
@@ -150,7 +138,7 @@
 
   <div class="question">
     <strong>14. A correct interpretation of a 95% confidence interval is:</strong>
-    <label><input type="radio" name="q14" value="a" required> a. 95% of the sample data falls within this range</label><br>
+    <label><input type="radio" name="q14" value="a"> a. 95% of the sample data falls within this range</label><br>
     <label><input type="radio" name="q14" value="b"> b. If repeated multiple times, 95% of intervals would contain the true mean</label><br>
     <label><input type="radio" name="q14" value="c"> c. The population mean is 95% certain to be within the interval</label><br>
     <label><input type="radio" name="q14" value="d"> d. There is a 95% probability that the mean falls in this range</label>
@@ -158,7 +146,7 @@
 
   <div class="question">
     <strong>15. A perfect positive correlation means:</strong>
-    <label><input type="radio" name="q15" value="a" required> a. One variable increases while the other decreases</label><br>
+    <label><input type="radio" name="q15" value="a"> a. One variable increases while the other decreases</label><br>
     <label><input type="radio" name="q15" value="b"> b. No relationship exists between variables</label><br>
     <label><input type="radio" name="q15" value="c"> c. Both variables increase together consistently</label><br>
     <label><input type="radio" name="q15" value="d"> d. The correlation fluctuates unpredictably</label>
@@ -166,7 +154,7 @@
 
   <div class="question">
     <strong>16. The Spearman correlation coefficient is useful when:</strong>
-    <label><input type="radio" name="q16" value="a" required> a. Analyzing linear relationships</label><br>
+    <label><input type="radio" name="q16" value="a"> a. Analyzing linear relationships</label><br>
     <label><input type="radio" name="q16" value="b"> b. Measuring associations between ordinal variables</label><br>
     <label><input type="radio" name="q16" value="c"> c. Calculating standard deviation</label><br>
     <label><input type="radio" name="q16" value="d"> d. Assessing normality</label>
@@ -174,7 +162,7 @@
 
   <div class="question">
     <strong>17. The median corresponds to which quartile?</strong>
-    <label><input type="radio" name="q17" value="a" required> a. First quartile (Q1)</label><br>
+    <label><input type="radio" name="q17" value="a"> a. First quartile (Q1)</label><br>
     <label><input type="radio" name="q17" value="b"> b. Second quartile (Q2)</label><br>
     <label><input type="radio" name="q17" value="c"> c. Third quartile (Q3)</label><br>
     <label><input type="radio" name="q17" value="d"> d. Fourth quartile (Q4)</label>
@@ -182,7 +170,7 @@
 
   <div class="question">
     <strong>18. The Central Limit Theorem states that:</strong>
-    <label><input type="radio" name="q18" value="a" required> a. A dataset with a large sample size always follows a normal distribution</label><br>
+    <label><input type="radio" name="q18" value="a"> a. A dataset with a large sample size always follows a normal distribution</label><br>
     <label><input type="radio" name="q18" value="b"> b. Sample means tend toward a normal distribution as sample size increases</label><br>
     <label><input type="radio" name="q18" value="c"> c. Variability decreases as sample size decreases</label><br>
     <label><input type="radio" name="q18" value="d"> d. Sample size does not influence distribution shape</label>
@@ -190,7 +178,7 @@
 
   <div class="question">
     <strong>19. A variable with ordered values but without meaningful numerical differences is:</strong>
-    <label><input type="radio" name="q19" value="a" required> a. Ordinal</label><br>
+    <label><input type="radio" name="q19" value="a"> a. Ordinal</label><br>
     <label><input type="radio" name="q19" value="b"> b. Nominal</label><br>
     <label><input type="radio" name="q19" value="c"> c. Interval</label><br>
     <label><input type="radio" name="q19" value="d"> d. Ratio</label>
@@ -198,7 +186,7 @@
 
   <div class="question">
     <strong>20. Which are the two main types of simple random sampling?</strong>
-    <label><input type="radio" name="q20" value="a" required> a. Stratified and systematic</label><br>
+    <label><input type="radio" name="q20" value="a"> a. Stratified and systematic</label><br>
     <label><input type="radio" name="q20" value="b"> b. Sampling with and without replacement</label><br>
     <label><input type="radio" name="q20" value="c"> c. Judgmental and quota sampling</label><br>
     <label><input type="radio" name="q20" value="d"> d. Cluster and stratified sampling</label>
@@ -206,7 +194,7 @@
 
   <div class="question">
     <strong>21. A nominal variable:</strong>
-    <label><input type="radio" name="q21" value="a" required> a. Represents categories with no inherent order</label><br>
+    <label><input type="radio" name="q21" value="a"> a. Represents categories with no inherent order</label><br>
     <label><input type="radio" name="q21" value="b"> b. Has measurable intervals</label><br>
     <label><input type="radio" name="q21" value="c"> c. Reflects ranked data</label><br>
     <label><input type="radio" name="q21" value="d"> d. Defines continuous numerical values</label>
@@ -214,7 +202,7 @@
 
   <div class="question">
     <strong>22. The main difference between sampling with and without replacement is:</strong>
-    <label><input type="radio" name="q22" value="a" required> a. With replacement allows multiple selections of the same unit; without replacement does not</label><br>
+    <label><input type="radio" name="q22" value="a"> a. With replacement allows multiple selections of the same unit; without replacement does not</label><br>
     <label><input type="radio" name="q22" value="b"> b. With replacement allows variable sample sizes</label><br>
     <label><input type="radio" name="q22" value="c"> c. Without replacement is only for qualitative research</label><br>
     <label><input type="radio" name="q22" value="d"> d. With replacement requires a smaller population</label>
@@ -222,7 +210,7 @@
 
   <div class="question">
     <strong>23. Skewness measures:</strong>
-    <label><input type="radio" name="q23" value="a" required> a. The asymmetry of a distribution</label><br>
+    <label><input type="radio" name="q23" value="a"> a. The asymmetry of a distribution</label><br>
     <label><input type="radio" name="q23" value="b"> b. The central peak's sharpness</label><br>
     <label><input type="radio" name="q23" value="c"> c. Variability within a dataset</label><br>
     <label><input type="radio" name="q23" value="d"> d. The presence of extreme values</label>
@@ -230,7 +218,7 @@
 
   <div class="question">
     <strong>24. Kurtosis is best described as:</strong>
-    <label><input type="radio" name="q24" value="a" required> a. The measure of a distribution’s spread</label><br>
+    <label><input type="radio" name="q24" value="a"> a. The measure of a distribution’s spread</label><br>
     <label><input type="radio" name="q24" value="b"> b. The degree of peak sharpness compared to a normal distribution</label><br>
     <label><input type="radio" name="q24" value="c"> c. The correlation strength in a dataset</label><br>
     <label><input type="radio" name="q24" value="d"> d. The measurement of dataset variability</label>
@@ -238,20 +226,111 @@
 
   <div class="question">
     <strong>25. A common misuse of p-values is:</strong>
-    <label><input type="radio" name="q25" value="a" required> a. Interpreting a p-value below 0.05 as absolute proof of an alternative hypothesis</label><br>
+    <label><input type="radio" name="q25" value="a"> a. Interpreting a p-value below 0.05 as absolute proof of an alternative hypothesis</label><br>
     <label><input type="radio" name="q25" value="b"> b. Using p-values to confirm the null hypothesis</label><br>
     <label><input type="radio" name="q25" value="c"> c. Assuming a high p-value means no effect exists</label><br>
     <label><input type="radio" name="q25" value="d"> d. Relying solely on p-values without considering normal distribution</label>
   </div>
 
-  <button type="submit">Send answers by email</button>
+  <div class="actions">
+    <button type="button" onclick="buildAnswerSheet()">Generate answers</button>
+    <button type="button" onclick="copyAnswers()">Copy answers</button>
+    <button type="button" onclick="openEmailDraft()">Open email draft</button>
+    <button type="reset">Reset</button>
+  </div>
+
+  <p id="status" class="hint"></p>
+
+  <label for="answersBox"><strong>Answer sheet (copy/paste or email):</strong></label>
+  <textarea id="answersBox" readonly placeholder="Click “Generate answers” first."></textarea>
 
 </form>
 
+<script>
+  const INSTRUCTOR_EMAIL = "INSTRUCTOR_EMAIL@university.edu"; // <-- CHANGE THIS
+  const SUBJECT = "COURSE_NAME – Statistics Quiz Answers";     // <-- OPTIONAL
+
+  function getSelectedValue(qName) {
+    const el = document.querySelector(`input[name="${qName}"]:checked`);
+    return el ? el.value : "";
+  }
+
+  function buildAnswerSheet() {
+    const name = document.getElementById("studentName").value.trim();
+    if (!name) {
+      setStatus("Please enter Name and Last Name first.", "warn");
+      document.getElementById("studentName").focus();
+      return;
+    }
+
+    let missing = [];
+    let lines = [];
+    lines.push(`Name and Last Name: ${name}`);
+    lines.push(`Timestamp (local): ${new Date().toISOString()}`);
+    lines.push("");
+
+    for (let i = 1; i <= 25; i++) {
+      const v = getSelectedValue(`q${i}`);
+      if (!v) missing.push(i);
+      lines.push(`q${i}=${v || "-"}`);
+    }
+
+    if (missing.length) {
+      setStatus(`Missing answers: ${missing.join(", ")}. You can still send, but fill them if this is graded.`, "warn");
+    } else {
+      setStatus("All answers captured. You can now copy or email them.", "ok");
+    }
+
+    document.getElementById("answersBox").value = lines.join("\n");
+  }
+
+  async function copyAnswers() {
+    const text = document.getElementById("answersBox").value;
+    if (!text) {
+      setStatus("Nothing to copy yet. Click “Generate answers” first.", "warn");
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+      setStatus("Copied to clipboard.", "ok");
+    } catch (e) {
+      // fallback
+      document.getElementById("answersBox").select();
+      document.execCommand("copy");
+      setStatus("Copied (fallback).", "ok");
+    }
+  }
+
+  function openEmailDraft() {
+    const text = document.getElementById("answersBox").value;
+    if (!text) {
+      setStatus("No answer sheet yet. Click “Generate answers” first.", "warn");
+      return;
+    }
+    if (!INSTRUCTOR_EMAIL || INSTRUCTOR_EMAIL.includes("INSTRUCTOR_EMAIL")) {
+      setStatus("Instructor email is not set in the code (INSTRUCTOR_EMAIL).", "warn");
+      return;
+    }
+
+    // mailto length limits exist; keep content compact if needed
+    const mailto = `mailto:${encodeURIComponent(INSTRUCTOR_EMAIL)}?subject=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(text)}`;
+    window.location.href = mailto;
+
+    setStatus("Email draft requested. If nothing opens, use Copy answers and paste into your webmail.", "ok");
+  }
+
+  function setStatus(msg, cls) {
+    const el = document.getElementById("status");
+    el.className = cls ? cls : "hint";
+    el.textContent = msg;
+  }
+</script>
+
 <hr>
 <p class="hint">
-  <strong>Instructor note:</strong> Replace <code>YOUR_EMAIL@university.edu</code> in the form action with your real address.
-  This solution works on GitHub Pages because it uses the student’s email client (<code>mailto:</code>) rather than a server.
+  <strong>Instructor notes:</strong>
+  <br>1) Edit <code>INSTRUCTOR_EMAIL</code> in the script (near the bottom).
+  <br>2) For students using webmail only (Gmail/Outlook in browser), the most reliable workflow is: <em>Generate → Copy → Paste into email/assignment submission</em>.
 </p>
 
 </body>
