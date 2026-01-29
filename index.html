@@ -16,12 +16,67 @@
     textarea { width: 100%; min-height: 220px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
     .ok { color: #0a7a0a; font-weight: 600; }
     .warn { color: #8a5a00; font-weight: 600; }
+    .linkbox { margin: 10px 0 18px; }
+    code { background: #f6f6f6; padding: 2px 6px; border-radius: 6px; }
   </style>
 </head>
 <body>
 
 <h1>Introduction to Statistics – Online Quiz</h1>
 <p class="hint"><strong>Instructions:</strong> Choose the best answer for each question. Select only one correct answer per question.</p>
+
+<!-- =========================
+  GOOGLE FORMS SETUP (YOU MUST EDIT THESE)
+  1) Create a Google Form with fields:
+     - Name and Last Name (Short answer)
+     - q1 ... q25 (Multiple choice with options exactly: a, b, c, d)
+  2) Get the FORM_URL:
+     - Open your Google Form -> Send -> Link (copy) OR
+     - Use the "formResponse" URL (see below)
+  3) Get ENTRY IDs (entry.########):
+     - In Google Forms: ⋮ (More) -> "Get pre-filled link"
+     - Fill dummy values, click "Get link"
+     - Copy the link and extract the entry numbers from the URL.
+     Example URL contains: entry.1234567890=Kamil%20Filipek&entry.222=...
+  4) Paste them below.
+========================== -->
+<script>
+  // Use the "formResponse" endpoint for prefilled submission links.
+  // You can derive it by taking your form URL and replacing "/viewform" with "/formResponse".
+  // Example:
+  // https://docs.google.com/forms/d/e/FORM_ID/viewform  ->  https://docs.google.com/forms/d/e/FORM_ID/formResponse
+  const FORM_RESPONSE_URL = "PASTE_YOUR_FORMRESPONSE_URL_HERE";
+
+  // Paste your entry IDs here (numbers only, without "entry.")
+  const ENTRY = {
+    name: "PASTE_ENTRY_ID_FOR_NAME",
+    q1:  "PASTE_ENTRY_ID_FOR_Q1",
+    q2:  "PASTE_ENTRY_ID_FOR_Q2",
+    q3:  "PASTE_ENTRY_ID_FOR_Q3",
+    q4:  "PASTE_ENTRY_ID_FOR_Q4",
+    q5:  "PASTE_ENTRY_ID_FOR_Q5",
+    q6:  "PASTE_ENTRY_ID_FOR_Q6",
+    q7:  "PASTE_ENTRY_ID_FOR_Q7",
+    q8:  "PASTE_ENTRY_ID_FOR_Q8",
+    q9:  "PASTE_ENTRY_ID_FOR_Q9",
+    q10: "PASTE_ENTRY_ID_FOR_Q10",
+    q11: "PASTE_ENTRY_ID_FOR_Q11",
+    q12: "PASTE_ENTRY_ID_FOR_Q12",
+    q13: "PASTE_ENTRY_ID_FOR_Q13",
+    q14: "PASTE_ENTRY_ID_FOR_Q14",
+    q15: "PASTE_ENTRY_ID_FOR_Q15",
+    q16: "PASTE_ENTRY_ID_FOR_Q16",
+    q17: "PASTE_ENTRY_ID_FOR_Q17",
+    q18: "PASTE_ENTRY_ID_FOR_Q18",
+    q19: "PASTE_ENTRY_ID_FOR_Q19",
+    q20: "PASTE_ENTRY_ID_FOR_Q20",
+    q21: "PASTE_ENTRY_ID_FOR_Q21",
+    q22: "PASTE_ENTRY_ID_FOR_Q22",
+    q23: "PASTE_ENTRY_ID_FOR_Q23",
+    q24: "PASTE_ENTRY_ID_FOR_Q24",
+    q25: "PASTE_ENTRY_ID_FOR_Q25"
+  };
+</script>
 
 <div class="name">
   <label>
@@ -31,6 +86,9 @@
 </div>
 
 <form id="quizForm">
+
+  <!-- IMPORTANT: values are a/b/c/d ONLY.
+       Build your Google Form questions with options exactly: a, b, c, d. -->
 
   <div class="question">
     <strong>1. Which of the following is not considered a measure of central tendency?</strong>
@@ -233,29 +291,40 @@
   </div>
 
   <div class="actions">
-    <button type="button" onclick="buildAnswerSheet()">Generate answers</button>
-    <button type="button" onclick="copyAnswers()">Copy answers</button>
-    <button type="button" onclick="openEmailDraft()">Open email draft</button>
-    <button type="reset">Reset</button>
+    <button type="button" onclick="generateAnswerSheet()">Generate answers</button>
+    <button type="button" onclick="openPrefilledGoogleForm()">Send to Google Form</button>
+    <button type="reset" onclick="clearStatus()">Reset</button>
   </div>
 
   <p id="status" class="hint"></p>
 
-  <label for="answersBox"><strong>Answer sheet (copy/paste or email):</strong></label>
-  <textarea id="answersBox" readonly placeholder="Click “Generate answers” first."></textarea>
+  <div class="linkbox">
+    <label for="answersBox"><strong>Generated answers (for transparency):</strong></label>
+    <textarea id="answersBox" readonly placeholder="Click “Generate answers” first."></textarea>
+  </div>
 
 </form>
 
 <script>
-  const INSTRUCTOR_EMAIL = "INSTRUCTOR_EMAIL@university.edu"; // <-- CHANGE THIS
-  const SUBJECT = "COURSE_NAME – Statistics Quiz Answers";     // <-- OPTIONAL
+  function clearStatus() {
+    const el = document.getElementById("status");
+    el.className = "hint";
+    el.textContent = "";
+    document.getElementById("answersBox").value = "";
+  }
 
   function getSelectedValue(qName) {
     const el = document.querySelector(`input[name="${qName}"]:checked`);
     return el ? el.value : "";
   }
 
-  function buildAnswerSheet() {
+  function setStatus(msg, cls) {
+    const el = document.getElementById("status");
+    el.className = cls || "hint";
+    el.textContent = msg;
+  }
+
+  function generateAnswerSheet() {
     const name = document.getElementById("studentName").value.trim();
     if (!name) {
       setStatus("Please enter Name and Last Name first.", "warn");
@@ -275,62 +344,75 @@
       lines.push(`q${i}=${v || "-"}`);
     }
 
-    if (missing.length) {
-      setStatus(`Missing answers: ${missing.join(", ")}. You can still send, but fill them if this is graded.`, "warn");
-    } else {
-      setStatus("All answers captured. You can now copy or email them.", "ok");
-    }
-
     document.getElementById("answersBox").value = lines.join("\n");
-  }
 
-  async function copyAnswers() {
-    const text = document.getElementById("answersBox").value;
-    if (!text) {
-      setStatus("Nothing to copy yet. Click “Generate answers” first.", "warn");
-      return;
-    }
-    try {
-      await navigator.clipboard.writeText(text);
-      setStatus("Copied to clipboard.", "ok");
-    } catch (e) {
-      // fallback
-      document.getElementById("answersBox").select();
-      document.execCommand("copy");
-      setStatus("Copied (fallback).", "ok");
+    if (missing.length) {
+      setStatus(`Missing answers: ${missing.join(", ")}. Fill them before sending.`, "warn");
+    } else {
+      setStatus("All answers captured. You can now send to Google Form.", "ok");
     }
   }
 
-  function openEmailDraft() {
-    const text = document.getElementById("answersBox").value;
-    if (!text) {
-      setStatus("No answer sheet yet. Click “Generate answers” first.", "warn");
-      return;
+  function validateConfig() {
+    if (!FORM_RESPONSE_URL || FORM_RESPONSE_URL.includes("PASTE_")) return "FORM_RESPONSE_URL is not set.";
+    for (const k of Object.keys(ENTRY)) {
+      const v = ENTRY[k];
+      if (!v || String(v).includes("PASTE_")) return `ENTRY.${k} is not set.`;
     }
-    if (!INSTRUCTOR_EMAIL || INSTRUCTOR_EMAIL.includes("INSTRUCTOR_EMAIL")) {
-      setStatus("Instructor email is not set in the code (INSTRUCTOR_EMAIL).", "warn");
-      return;
-    }
-
-    // mailto length limits exist; keep content compact if needed
-    const mailto = `mailto:${encodeURIComponent(INSTRUCTOR_EMAIL)}?subject=${encodeURIComponent(SUBJECT)}&body=${encodeURIComponent(text)}`;
-    window.location.href = mailto;
-
-    setStatus("Email draft requested. If nothing opens, use Copy answers and paste into your webmail.", "ok");
+    return "";
   }
 
-  function setStatus(msg, cls) {
-    const el = document.getElementById("status");
-    el.className = cls ? cls : "hint";
-    el.textContent = msg;
+  function openPrefilledGoogleForm() {
+    // Ensure answer sheet exists (and name exists)
+    generateAnswerSheet();
+
+    const name = document.getElementById("studentName").value.trim();
+    if (!name) return;
+
+    // Check config
+    const configError = validateConfig();
+    if (configError) {
+      setStatus(`Instructor config error: ${configError}`, "warn");
+      return;
+    }
+
+    // Check if missing answers remain
+    let missing = [];
+    let answers = {};
+    for (let i = 1; i <= 25; i++) {
+      const v = getSelectedValue(`q${i}`);
+      if (!v) missing.push(i);
+      answers[`q${i}`] = v;
+    }
+    if (missing.length) {
+      setStatus(`Please answer all questions before sending. Missing: ${missing.join(", ")}.`, "warn");
+      return;
+    }
+
+    // Build prefilled URL: FORM_RESPONSE_URL?entry.NAME=...&entry.Q1=... etc.
+    const params = new URLSearchParams();
+    params.set(`entry.${ENTRY.name}`, name);
+
+    for (let i = 1; i <= 25; i++) {
+      params.set(`entry.${ENTRY["q" + i]}`, answers["q" + i]); // sends "a/b/c/d"
+    }
+
+    const url = `${FORM_RESPONSE_URL}?${params.toString()}`;
+
+    // Open in new tab. Student just clicks "Submit" on Google Form.
+    window.open(url, "_blank", "noopener");
+
+    setStatus("Google Form opened in a new tab. Please review and click Submit.", "ok");
   }
 </script>
 
 <hr>
 <p class="hint">
-  <strong>Instructor notes:</strong>
-  <br>1) Edit <code>INSTRUCTOR_EMAIL</code> in the script (near the bottom).
-  <br>2) For students using webmail only (Gmail/Outlook in browser), the most reliable workflow is: <em>Generate → Copy → Paste into email/assignment submission</em>.
+  <strong>Instructor checklist</strong><br>
+  1) Create Google Form with fields: Name + q1–q25.<br>
+  2) For each question set options exactly: <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code> (not the full text).<br>
+  3) Use <em>Get pre-filled link</em> to obtain <code>entry.########</code> IDs and paste them into the <code>ENTRY</code> object above.<br>
+  4) Set <code>FORM_RESPONSE_URL</code> to the <code>.../formResponse</code> URL of your form.
 </p>
 
 </body>
